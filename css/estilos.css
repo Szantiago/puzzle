@@ -2,7 +2,12 @@
 {
     font-family: Arial;
 }
-
+#text{
+  font-family: Arial;
+  color: green;
+  border: 3px solid white;
+  margin-top: 20px;
+}
 #puzzle
 {
     margin: 0 auto;

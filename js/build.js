@@ -46,6 +46,7 @@ var estiloCelda = function estiloCelda(_ref2) {
 //Para imprimir el Puzzle...
 var imprimePuzzle = function imprimePuzzle(data) {
     window.global = data;
+    //console.log(data);
     //utils.accesoDOM("puzzle").style.height = utils.accesoDOM("puzzle").style.width = `${(valorCorte * data.length) + (data.length * 5)}px`;
     _utils2.default.accesoDOM("puzzle").style.height = _utils2.default.accesoDOM("puzzle").style.width = valorCorte * data.length + data.length * 2 + "px";
     var cortes = "";
@@ -104,7 +105,12 @@ var presionaPieza = function presionaPieza(fila, columna) {
             var enPosicion = posBusca.fila >= 0 && posBusca.fila < matrizPuzzle.length && posBusca.columna >= 0 && posBusca.columna < matrizPuzzle.length;
             if (enPosicion) {
                 //Saber si existe espacio...
-                console.log(i + " ocupado: " + matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado);
+                //console.log(`${i} ocupado: ${matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado}`);
+                if (!matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado) {
+                    matrizDesorganiza[posBusca.fila][posBusca.columna] = JSON.parse(JSON.stringify(matrizDesorganiza[fila][columna]));
+                    matrizDesorganiza[fila][columna].ocupado = false;
+                }
+                imprimePuzzle(matrizDesorganiza);
             }
         }
     }
@@ -163,7 +169,32 @@ _utils2.default.accesoDOM("resuelve").addEventListener('click', function (event)
 });
 
 _utils2.default.accesoDOM("comprueba").addEventListener('click', function (event) {
-    console.log("Validación de comprobación");
+    var con = 0;
+    var boo = false;
+    for (var i = 0; i < matrizPuzzle.length; i++) {
+        for (var j = 0; j < matrizPuzzle.length; j++) {
+            if (matrizPuzzle[i][j].cont === matrizDesorganiza[i][j].cont) {
+                if (matrizPuzzle[i][j].cont === 9) {
+                    boo = false;
+                } else {
+                    con++;
+                    boo = true;
+                }
+                if (boo) {
+                    _utils2.default.accesoDOM("text").innerHTML = "Pista: la ficha con el numero " + matrizPuzzle[i][j].cont + " esta en la posición correcta " + (matrizPuzzle.length * matrizPuzzle.length - 1);
+                    console.table("matp " + matrizPuzzle[i][j].cont);
+                    console.table("matd " + matrizDesorganiza[i][j].cont);
+                }
+            } else if (matrizPuzzle[i][j].cont !== matrizDesorganiza[i][j].cont) {
+                if (!boo) {
+                    _utils2.default.accesoDOM("text").innerHTML = "No hay pista";
+                }
+            }
+        }
+    }
+    if (con >= matrizPuzzle.length * matrizPuzzle.length - 1) {
+        _utils2.default.accesoDOM("text").innerHTML = "Juego terminado";
+    }
 });
 
 },{"./utils":2}],2:[function(require,module,exports){

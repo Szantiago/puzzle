@@ -44,6 +44,7 @@ let estiloCelda = ({fila, columna, ocupado}) =>
 let imprimePuzzle = (data) =>
 {
     window.global = data;
+    //console.log(data);
     //utils.accesoDOM("puzzle").style.height = utils.accesoDOM("puzzle").style.width = `${(valorCorte * data.length) + (data.length * 5)}px`;
     utils.accesoDOM("puzzle").style.height = utils.accesoDOM("puzzle").style.width = `${(valorCorte * data.length) + (data.length * 2)}px`;
     let cortes = "";
@@ -114,10 +115,15 @@ let presionaPieza = (fila, columna) =>
             if(enPosicion)
             {
                 //Saber si existe espacio...
-                console.log(`${i} ocupado: ${matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado}`);
+                //console.log(`${i} ocupado: ${matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado}`);
+                if(!matrizDesorganiza[posBusca.fila][posBusca.columna].ocupado){
+                  matrizDesorganiza[posBusca.fila][posBusca.columna] = JSON.parse(JSON.stringify(matrizDesorganiza[fila][columna]));
+                  matrizDesorganiza[fila][columna].ocupado =false;
+                }
+                imprimePuzzle(matrizDesorganiza);
             }
         }
-    }
+      }
 };
 
 //Para desorganizar el Puzlle..
@@ -185,5 +191,31 @@ utils.accesoDOM("resuelve").addEventListener('click', event =>
 
 utils.accesoDOM("comprueba").addEventListener('click', event =>
 {
-    console.log("Validación de comprobación");
+  let con=0;
+  let boo=false;
+for (let i = 0; i < matrizPuzzle.length; i++) {
+  for (let j = 0; j < matrizPuzzle.length; j++) {
+    if(matrizPuzzle[i][j].cont===matrizDesorganiza[i][j].cont){
+if(matrizPuzzle[i][j].cont===9){
+  boo=false;
+}else{
+      con++;
+boo=true;}
+if(boo){
+      utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta ${(matrizPuzzle.length*matrizPuzzle.length)-1}`;
+        console.table(`matp ${matrizPuzzle[i][j].cont}`);
+        console.table(`matd ${matrizDesorganiza[i][j].cont}`);}
+    }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
+      if(!boo){
+utils.accesoDOM("text").innerHTML = "No hay pista";}
+
+    }
+
+  }
+}
+if(con>=(matrizPuzzle.length*matrizPuzzle.length)-1){
+  utils.accesoDOM("text").innerHTML = "Juego terminado";
+}
+
+
 });
