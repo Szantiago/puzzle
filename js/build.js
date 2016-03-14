@@ -181,7 +181,7 @@ _utils2.default.accesoDOM("comprueba").addEventListener('click', function (event
                     boo = true;
                 }
                 if (boo) {
-                    _utils2.default.accesoDOM("text").innerHTML = "Pista: la ficha con el numero " + matrizPuzzle[i][j].cont + " esta en la posición correcta " + (matrizPuzzle.length * matrizPuzzle.length - 1);
+                    _utils2.default.accesoDOM("text").innerHTML = "Pista: la ficha con el numero " + matrizPuzzle[i][j].cont + " esta en la posición correcta ";
                     console.table("matp " + matrizPuzzle[i][j].cont);
                     console.table("matd " + matrizDesorganiza[i][j].cont);
                 }

@@ -202,7 +202,7 @@ if(matrizPuzzle[i][j].cont===9){
       con++;
 boo=true;}
 if(boo){
-      utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta ${(matrizPuzzle.length*matrizPuzzle.length)-1}`;
+      utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta `;
         console.table(`matp ${matrizPuzzle[i][j].cont}`);
         console.table(`matd ${matrizDesorganiza[i][j].cont}`);}
     }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
