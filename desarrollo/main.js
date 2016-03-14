@@ -193,29 +193,23 @@ utils.accesoDOM("comprueba").addEventListener('click', event =>
 {
   let con=0;
   let boo=false;
-for (let i = 0; i < matrizPuzzle.length; i++) {
-  for (let j = 0; j < matrizPuzzle.length; j++) {
-    if(matrizPuzzle[i][j].cont===matrizDesorganiza[i][j].cont){
-if(matrizPuzzle[i][j].cont===9){
-  boo=false;
-}else{
-      con++;
-boo=true;}
-if(boo){
-      utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta `;
-        console.table(`matp ${matrizPuzzle[i][j].cont}`);
-        console.table(`matd ${matrizDesorganiza[i][j].cont}`);}
-    }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
-      if(!boo){
-utils.accesoDOM("text").innerHTML = "No hay pista";}
-
-    }
-
-  }
-}
-if(con>=(matrizPuzzle.length*matrizPuzzle.length)-1){
-  utils.accesoDOM("text").innerHTML = "Juego terminado";
-}
-
-
+  for (let i = 0; i < matrizPuzzle.length; i++) {
+    for (let j = 0; j < matrizPuzzle.length; j++) {
+      if(matrizPuzzle[i][j].cont===matrizDesorganiza[i][j].cont){
+        if(matrizPuzzle[i][j].cont===9){
+          boo=false;
+        }else{
+          con++;
+          boo=true;}
+          if(boo){
+            utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta `;
+          }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
+            if(!boo){
+              utils.accesoDOM("text").innerHTML = "No hay pista";}
+            }
+          }
+        }
+        if(con>=(matrizPuzzle.length*matrizPuzzle.length)-1){
+          utils.accesoDOM("text").innerHTML = "Juego terminado";
+        }
 });
