@@ -124,6 +124,7 @@ let presionaPieza = (fila, columna) =>
             }
         }
       }
+
 };
 
 //Para desorganizar el Puzlle..
@@ -200,16 +201,18 @@ utils.accesoDOM("comprueba").addEventListener('click', event =>
           boo=false;
         }else{
           con++;
-          boo=true;}
-          if(boo){
-            utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta `;
-          }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
-            if(!boo){
-              utils.accesoDOM("text").innerHTML = "No hay pista";}
-            }
-          }
+          boo=true;
         }
-        if(con>=(matrizPuzzle.length*matrizPuzzle.length)-1){
-          utils.accesoDOM("text").innerHTML = "Juego terminado";
+        if(boo){
+          utils.accesoDOM("text").innerHTML = `Pista: la ficha con el numero ${matrizPuzzle[i][j].cont} esta en la posición correcta.`;
         }
+      }else if(matrizPuzzle[i][j].cont!==matrizDesorganiza[i][j].cont){
+        if(!boo){
+          utils.accesoDOM("text").innerHTML = "No hay pista";}
+      }
+    }
+  }
+  if(con>=(matrizPuzzle.length*matrizPuzzle.length)-1){
+    utils.accesoDOM("text").innerHTML = "Juego terminado";
+  }
 });
