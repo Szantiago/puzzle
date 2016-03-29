@@ -14,27 +14,7 @@ let opcImg = () =>{
   return urlImg;
 };
 
-console.log(select,"  ",urlImg);
-
 const valorCorte = 100;//El valor del corte que se hará...
-
-
-utils.creaPuzzle(opcImg(), valorCorte, ({error = false, data}) =>
-{
-    if(!error)
-    {
-        matrizPuzzle = JSON.parse(JSON.stringify(data));
-        matrizDesorganiza = JSON.parse(JSON.stringify(data));
-        //Crear clase del fondo...
-        utils.createClass(".fondo", `background: url(${urlImg});
-                                     background-repeat: none;
-                                     font-family: Arial;
-                                     color: white;
-                                     text-shadow: 1px 1px 1px black;`);
-        imprimePuzzle(data);
-    }
-});
-
 
 //Para el estilo de las celdas...
 let estiloCelda = ({fila, columna, ocupado}) =>
