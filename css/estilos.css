@@ -25,7 +25,11 @@ body
     height: auto;
     margin: 0 auto;
 }
-
+#select
+{
+  padding-top: 30px;
+  text-align: center;
+}
 #botones
 {
     padding-top: 30px;

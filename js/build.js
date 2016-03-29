@@ -12,8 +12,20 @@ var urlImg = "img/image01.jpg",
     //Para guardar la matriz de la respuesta...
 matrizDesorganiza = [];
 
+var select = _utils2.default.accesoDOM("opc");
+
+var opcImg = function opcImg() {
+    if (select.value != 0) {
+        urlImg = "img/image0" + select.value + ".jpg";
+    }
+    return urlImg;
+};
+
+console.log(select, "  ", urlImg);
+
 var valorCorte = 100; //El valor del corte que se hará...
-_utils2.default.creaPuzzle(urlImg, valorCorte, function (_ref) {
+
+_utils2.default.creaPuzzle(opcImg(), valorCorte, function (_ref) {
     var _ref$error = _ref.error;
     var error = _ref$error === undefined ? false : _ref$error;
     var data = _ref.data;
@@ -157,6 +169,29 @@ var desorganizaPuzzle = function desorganizaPuzzle() {
     }
     imprimePuzzle(matrizDesorganiza);
 };
+
+//
+_utils2.default.accesoDOM("opc").addEventListener('change', function (event) {
+    opcImg();
+
+    _utils2.default.creaPuzzle(opcImg(), valorCorte, function (_ref3) {
+        var _ref3$error = _ref3.error;
+        var error = _ref3$error === undefined ? false : _ref3$error;
+        var data = _ref3.data;
+
+        if (!error) {
+            matrizPuzzle = JSON.parse(JSON.stringify(data));
+            matrizDesorganiza = JSON.parse(JSON.stringify(data));
+            //Crear clase del fondo...
+            _utils2.default.createClass(".fondo", "background: url(" + urlImg + ");\n                                         background-repeat: none;\n                                         font-family: Arial;\n                                         color: white;\n                                         text-shadow: 1px 1px 1px black;");
+            imprimePuzzle(data);
+        }
+    });
+
+    console.log(opcImg());
+    console.log(select.value);
+    console.log(urlImg);
+});
 
 //Para los botones...
 _utils2.default.accesoDOM("desorganiza").addEventListener('click', function (event) {

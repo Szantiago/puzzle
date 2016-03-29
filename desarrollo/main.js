@@ -1,11 +1,25 @@
 import utils from "./utils";
 
-let urlImg            = "img/image01.jpg",
-    matrizPuzzle      = [], //Para guardar la matriz de la respuesta...
-    matrizDesorganiza = [];
+let urlImg = `img/image01.jpg`,
+matrizPuzzle      = [], //Para guardar la matriz de la respuesta...
+matrizDesorganiza = [];
+
+let select = utils.accesoDOM("opc");
+
+let opcImg = () =>{
+  if(select.value!=0)
+  {
+    urlImg =`img/image0${select.value}.jpg`;
+  }
+  return urlImg;
+};
+
+console.log(select,"  ",urlImg);
 
 const valorCorte = 100;//El valor del corte que se hará...
-utils.creaPuzzle(urlImg, valorCorte, ({error = false, data}) =>
+
+
+utils.creaPuzzle(opcImg(), valorCorte, ({error = false, data}) =>
 {
     if(!error)
     {
@@ -20,6 +34,7 @@ utils.creaPuzzle(urlImg, valorCorte, ({error = false, data}) =>
         imprimePuzzle(data);
     }
 });
+
 
 //Para el estilo de las celdas...
 let estiloCelda = ({fila, columna, ocupado}) =>
@@ -177,6 +192,33 @@ let desorganizaPuzzle = () =>
     }
     imprimePuzzle(matrizDesorganiza);
 };
+
+//
+utils.accesoDOM("opc").addEventListener('change', event =>
+{
+    opcImg();
+
+    utils.creaPuzzle(opcImg(), valorCorte, ({error = false, data}) =>
+    {
+        if(!error)
+        {
+            matrizPuzzle = JSON.parse(JSON.stringify(data));
+            matrizDesorganiza = JSON.parse(JSON.stringify(data));
+            //Crear clase del fondo...
+            utils.createClass(".fondo", `background: url(${urlImg});
+                                         background-repeat: none;
+                                         font-family: Arial;
+                                         color: white;
+                                         text-shadow: 1px 1px 1px black;`);
+            imprimePuzzle(data);
+        }
+    });
+
+    console.log(opcImg());
+    console.log(select.value);
+    console.log(urlImg);
+});
+
 
 //Para los botones...
 utils.accesoDOM("desorganiza").addEventListener('click', event =>
